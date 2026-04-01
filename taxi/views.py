@@ -7,7 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from taxi.forms import CarForm, DriverLicenseUpdateForm
+from taxi.forms import CarForm, DriverCreationForm, DriverLicenseUpdateForm
 
 from .models import Driver, Car, Manufacturer
 
@@ -36,7 +36,7 @@ def index(request):
 
 
 @login_required
-def car_assign(response, pk, fk):
+def car_assign(request, pk, fk):
     user = User.objects.get(pk=fk)
     if user.cars.filter(pk=pk).exists():
         user.cars.remove(pk)
@@ -96,7 +96,7 @@ class CarUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Car
-    success_url = reverse_lazy("taxi:driver-list")
+    success_url = reverse_lazy("taxi:car-list")
 
 
 class DriverListView(LoginRequiredMixin, generic.ListView):
@@ -106,7 +106,7 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
 
 class DriverCreateView(LoginRequiredMixin, generic.CreateView):
     model = Driver
-    fields = ["username", "license_number"]
+    form_class = DriverCreationForm
     success_url = reverse_lazy("taxi:driver-list")
 
 

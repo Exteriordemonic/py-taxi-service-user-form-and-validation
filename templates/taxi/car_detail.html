@@ -15,9 +15,9 @@
   <h1 class="d-flex justify-content-between align-items-center">
     <span>Drivers</span>
     {% if request.user in car.drivers.all %}
-      <a href="{% url 'taxi:car-asign' pk=car.id fk=request.user.id %}" class="btn btn-danger">Delete me from this car</a>
+      <a href="{% url 'taxi:car-assign' pk=car.id fk=request.user.id %}" class="btn btn-danger">Delete me from this car</a>
     {% else %}
-      <a href="{% url 'taxi:car-asign' pk=car.id fk=request.user.id %}" class="btn btn-success">Assign me to this car</a>
+      <a href="{% url 'taxi:car-assign' pk=car.id fk=request.user.id %}" class="btn btn-success">Assign me to this car</a>
     {% endif %}
   </h1>
   <hr>
