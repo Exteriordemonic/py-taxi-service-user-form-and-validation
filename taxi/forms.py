@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car
+from .models import Car, Driver
 
 
 class CarForm(forms.ModelForm):
@@ -9,3 +9,9 @@ class CarForm(forms.ModelForm):
         widgets = {
             "drivers": forms.CheckboxSelectMultiple(),
         }
+
+
+class DriverLicenseUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Driver
+        fields = ("license_number",)
